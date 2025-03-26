@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening; // Dùng DOTween để tạo hiệu ứng di chuyển
 
-public class MenuController : MonoBehaviour
+public class Menu: MonoBehaviour
 {
     public GameObject titleObject; // GameObject chứa hình ảnh hoặc chữ tên game "Poor Bunny"
     public Button playButton;
