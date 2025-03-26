@@ -11,7 +11,7 @@ public class CarrotAnimation : MonoBehaviour
     void Start()
     {
         // Hiệu ứng di chuyển lên xuống liên tục
-        transform.DOMoveY(transform.position.y + 20, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        transform.DOMoveY(transform.position.y + 1, 1.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
     }
 
     void OnTriggerEnter2D(Collider2D other)
