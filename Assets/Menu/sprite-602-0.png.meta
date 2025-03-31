@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-guid: b5f240c4fe45e9a4eb63aa490a6ed634
-AssetOrigin:
-  serializedVersion: 1
-  productId: 198453
-  packageName: 2D UI Buttons Free Package for unity developer by Javedkhanme
-  packageVersion: 1.1
-  assetPath: Assets/TechnoGami/2d UI button/AllSection/Section05/StartButton.png
-  uploadId: 441210
+guid: 0f3b65e7477cab245bd74b86ccd66405
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -2205021910880445797
+    second: sprite-602-0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +68,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -128,7 +124,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: sprite-602-0_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 78
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9a940831403661e0800000000000000
+      internalID: -2205021910880445797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -142,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sprite-602-0_0: -2205021910880445797
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening; // Dùng DOTween để tạo hiệu ứng di chuyển
+using DG.Tweening;
 
 public class Menu: MonoBehaviour
 {
@@ -9,6 +9,7 @@ public class Menu: MonoBehaviour
     public Button playButton;
     public Button settingsButton;
     public Button selectBunnyButton;
+    public Button exitButton;
     void Start()
     {
         // Hiệu ứng di chuyển GameObject title
@@ -18,6 +19,7 @@ public class Menu: MonoBehaviour
         playButton.onClick.AddListener(PlayGame);
         settingsButton.onClick.AddListener(OpenSettings);
         selectBunnyButton.onClick.AddListener(SelectBunny);
+        exitButton.onClick.AddListener(ExitGame);
     }
 
     void PlayGame()
@@ -35,5 +37,11 @@ public class Menu: MonoBehaviour
     {
         Debug.Log("Chọn Thỏ");
         // Thêm code để mở giao diện chọn nhân vật
+    }
+    
+    void ExitGame()
+    {
+        Debug.Log("Thoát game!");
+        Application.Quit(); // 🆕 Thoát game
     }
 }
