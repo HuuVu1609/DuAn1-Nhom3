@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck; // diem check mat dat
     [SerializeField] private LayerMask groundLayer;
+    
+    [Header("Camera")]
+    [SerializeField] private CameraShake cameraShake;
 
     private float horizontal;
     private bool _isGrounded;
@@ -35,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxis("Horizontal"); // Khoi tao nut di chuyen trai phai cho Player
         
         if (horizontal != 0)
         {
@@ -68,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
         }
         
+        // Khi hoan thanh aniamtion Jump thi se chuyen sang Run hoac Idle
         if (_isGrounded && currentAnimation == "Jump")
         {
             ChangeAnimation(horizontal != 0 ? "Run" : "Idle");
@@ -85,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
+    // Quan li Animation cho character
     private void ChangeAnimation(string animation, float crossfade = 0.3f)
     {
         if (currentAnimation != animation)
@@ -97,23 +102,30 @@ public class PlayerMovement : MonoBehaviour
     {
         ChangeAnimation("Jump");
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, Player_jumpForce);
-         audioManager.jumpAudio();
+         audioManager.PlayJumpAudio();
     }
     
     private IEnumerator DieAnimation(bool DieCheck = false) // trang thai khi player chet
     {
+        cameraShake.Shake(0.2f, 0.2f); // Camera rung trong 2s khi palyer chet
+        yield return new WaitForSeconds(0.5f);
         if (DieCheck)
         {
             for (int i = 0; i < 2; i++) 
             {
-                transform.Rotate(0f, 0f, 90f);
+                transform.Rotate(0f, 0f, 90f); 
                 yield return new WaitForSeconds(0.5f);
             }
         }
+        yield return new WaitForSeconds(0.5f);
+        UIManager.instance.ShowResults(); // Hien thi man hinh ket qua
     }
-    
+
+   
+
     private void OnCollisionEnter2D(Collision2D other)
     {
+        // Xu li va cham giua character voi trap
         if (other.gameObject.CompareTag("trap"))
         {
             Vector2 pushDirection = new Vector2(-3, 0);
@@ -124,18 +136,26 @@ public class PlayerMovement : MonoBehaviour
             BoxCollider2D collider = gameObject.GetComponent<BoxCollider2D>();
             collider.isTrigger = true;
             
-            AudioManager.instance.dieAudio(); 
+            AudioManager.instance.PlayDieAudio();
+        }
+
+        if (other.gameObject.CompareTag("oneWayGround"))
+        {
+            CompositeCollider2D ground = other.gameObject.GetComponent<CompositeCollider2D>();
+            OnWayGround.instance.GroundOneWay(ground);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D tr)
     {
+        // Xu li va cham giua Character voi Carrot
         if (tr.gameObject.CompareTag("Carrot"))
         {
             UIManager.instance.AddCarrot();
             Destroy(tr.gameObject);
             
-            AudioManager.instance.carrotAudio();
+            AudioManager.instance.PlayCarrotAudio();
         }
+      
     }
 }
