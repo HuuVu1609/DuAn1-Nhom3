@@ -120,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6587697731675711626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d170635153bb64b9436d506f5f070a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fe6682b984882d41a749617f7450d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pointPrefabs:
