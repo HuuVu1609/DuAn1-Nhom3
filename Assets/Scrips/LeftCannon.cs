@@ -36,6 +36,8 @@ public class LeftCannon : MonoBehaviour
         FireShell();
 
         yield return new WaitForSeconds(delayReFire);
+        
+        StartCoroutine(Shooting());
     }
     private void FireShell()
     {
@@ -46,20 +48,10 @@ public class LeftCannon : MonoBehaviour
 
             if (rb != null)
             {
-                rb.linearVelocity = Vector2.right * shellSpeed;
+                rb.linearVelocity = transform.right * shellSpeed;
             }
+
+            Destroy(shell, 5);
         }
-    }
-    private float GetAnimationLength(string animationName)
-    {
-        RuntimeAnimatorController ac = animator.runtimeAnimatorController;
-        foreach (AnimationClip clip in ac.animationClips)
-        {
-            if (clip.name == animationName)
-            {
-                return clip.length;
-            }
-        }
-        return 2f;
     }
 }
