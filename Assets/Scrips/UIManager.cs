@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject playUI;
     [SerializeField] private GameObject ResultUI;
-    [SerializeField] private GameObject TrapUI;
 
     [Header("Buttons")]
     [SerializeField] private Button[] buttons; 
@@ -64,7 +63,6 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 1; 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         }); // Again
-        LoadResultsFromFile(); // Tai ket qua 
     }
 
     private void Update()
@@ -132,68 +130,46 @@ public class UIManager : MonoBehaviour
         isGameSoundOn = true;
         AudioManager.instance.ToggleAudio(AudioManager.instance.audioClip, true);
     }
-    public void SaveResultsToFile()
+    public void SaveGameResult()
     {
-        string path = Application.dataPath + "/results.txt";
-
-        // Kiểm tra nếu đã có thành tích trước đó
-        string previousCarrot = "0";
-        string previousTime = "0:00:00";
-        if (File.Exists(path))
+        GameResult result = new GameResult();
+    
+        // Kiểm tra nếu đã có dữ liệu trước đó
+        if (File.Exists(Application.persistentDataPath + "/GameResult.json"))
         {
-            string[] results = File.ReadAllLines(path);
-            previousCarrot = results.Length > 0 ? results[0].Replace("CarrotCount:", "").Trim() : "0";
-
-            // Định dạng thời gian trước đó
-            previousTime = results.Length > 1 ? results[1].Replace("TimePlayed:", "").Trim() : "0:00:00";
+            string jsonData = File.ReadAllText(Application.persistentDataPath + "/GameResult.json");
+            GameResult previousResult = JsonUtility.FromJson<GameResult>(jsonData);
+        
+            result.previousCarrotCount = previousResult.currentCarrotCount;
+            result.previousTime = previousResult.currentTime;
         }
+    
+        // Cập nhật kết quả hiện tại
+        result.currentCarrotCount = carrotCount;
+        result.currentTime = timer;
 
-        // Định dạng thời gian chơi mới nhất thành 0:00:00
-        int hours = Mathf.FloorToInt(timer / 3600);
-        int minutes = Mathf.FloorToInt((timer % 3600) / 60);
-        int seconds = Mathf.FloorToInt(timer % 60);
-        string currentTimeFormatted = $"{hours:0}:{minutes:00}:{seconds:00}";
-
-        // Ghi thành tích mới
-        string currentCarrot = $"CarrotCount: {carrotCount}";
-        string currentTime = $"TimePlayed: {currentTimeFormatted}";
-        File.WriteAllText(path, currentCarrot + "\n" + currentTime);
-
-        // Hiển thị thành tích mới nhất
-        currentCarrotText.text = $"{carrotCount}";
-        currentTimeText.text = $"{currentTimeFormatted}";
-
-        // Hiển thị thành tích trước đó
-        previousCarrotText.text = $"{previousCarrot}";
-        previousTimeText.text = $"{previousTime}";
-
-        Debug.Log("Đã lưu kết quả vào results.txt");
-    }
-    public void LoadResultsFromFile()
-    {
-        string path = Application.dataPath + "/results.txt";
-        if (File.Exists(path))
-        {
-            string[] results = File.ReadAllLines(path);
-            string previousCarrot = results.Length > 0 ? results[0].Replace("CarrotCount:", "").Trim() : "0";
-            string previousTime = results.Length > 1 ? results[1].Replace("TimePlayed:", "").Trim() : "0:00:00";
-
-            // Hiển thị thành tích trước đó trên ResultUI
-            previousCarrotText.text = $"{previousCarrot}";
-            previousTimeText.text = $"{previousTime}";
-        }
-        else
-        {
-            previousCarrotText.text = "0";
-            previousTimeText.text = "0:00:00";
-        }
+        // Ghi vào file JSON
+        string json = JsonUtility.ToJson(result, true);
+        File.WriteAllText(Application.persistentDataPath + "/GameResult.json", json);
     }
 
     public void ShowResults()
     {
+        if (File.Exists(Application.persistentDataPath + "/GameResult.json"))
+        {
+            string jsonData = File.ReadAllText(Application.persistentDataPath + "/GameResult.json");
+            GameResult result = JsonUtility.FromJson<GameResult>(jsonData);
+        
+            previousCarrotText.text = result.previousCarrotCount.ToString();
+            previousTimeText.text = $"{result.previousTime:0:00.00}s";
+            currentCarrotText.text = result.currentCarrotCount.ToString();
+            currentTimeText.text = $"{result.currentTime:0:00.00}s";
+        }
         ResultUI.SetActive(true);
         playUI.SetActive(false);
-        TrapUI.SetActive(false);
         AudioManager.instance.PlayResultBackgroundAudio();
+        AudioManager.instance.ToggleAudio(AudioManager.instance.audioClip, false);
     }
+ 
+
 }
