@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip jumpAudio;
     [SerializeField] private AudioClip carrotAudio;
     [SerializeField] private AudioClip dieAudio;
+    [SerializeField] private AudioClip GoldcarrotAudio;
 
     private void Awake()
     {
@@ -70,7 +71,10 @@ public class AudioManager : MonoBehaviour
     {
         PlayOneShotAudio(audioClip, carrotAudio);
     }
-
+    public void PlayGoldCarrotAudio()
+    {
+        PlayOneShotAudio(audioClip, GoldcarrotAudio);
+    }
     public void PlayDieAudio()
     {
         PlayOneShotAudio(audioClip, dieAudio);
