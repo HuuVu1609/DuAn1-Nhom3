@@ -7,9 +7,9 @@ public class Menu: MonoBehaviour
 {
     public GameObject titleObject; // GameObject chứa hình ảnh hoặc chữ tên game "Poor Bunny"
     public Button playButton;
-    public Button settingsButton;
-    public Button selectBunnyButton;
     public Button exitButton;
+    public Button soundToggleButton;
+    private bool isSoundOn = true;
     void Start()
     {
         // Hiệu ứng di chuyển GameObject title
@@ -17,31 +17,22 @@ public class Menu: MonoBehaviour
 
         // Gán sự kiện cho các nút
         playButton.onClick.AddListener(PlayGame);
-        settingsButton.onClick.AddListener(OpenSettings);
-        selectBunnyButton.onClick.AddListener(SelectBunny);
         exitButton.onClick.AddListener(ExitGame);
+        soundToggleButton.onClick.AddListener(ToggleSound);
     }
-
     void PlayGame()
     {
         SceneManager.LoadScene("SampleScene");
     }
-
-    void OpenSettings()
-    {
-        Debug.Log("Mở cài đặt");
-        // Thêm code để mở menu cài đặt nếu có
-    }
-
-    void SelectBunny()
-    {
-        Debug.Log("Chọn Thỏ");
-        // Thêm code để mở giao diện chọn nhân vật
-    }
-    
     void ExitGame()
     {
         Debug.Log("Thoát game!");
         Application.Quit(); // 🆕 Thoát game
+    }
+    void ToggleSound()
+    {
+        isSoundOn = !isSoundOn;
+        AudioListener.volume = isSoundOn ? 1f : 0f;
+        Debug.Log("Âm thanh hiện tại: " + (isSoundOn ? "BẬT" : "TẮT"));
     }
 }
