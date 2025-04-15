@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening; // Dùng DOTween để tạo hiệu ứng di chuyển
+using DG.Tweening;
 
-public class MenuController : MonoBehaviour
+public class Menu: MonoBehaviour
 {
     public GameObject titleObject; // GameObject chứa hình ảnh hoặc chữ tên game "Poor Bunny"
     public Button playButton;
-    public Button settingsButton;
-    public Button selectBunnyButton;
+    public Button exitButton;
+    public Button soundToggleButton;
+    private bool isSoundOn = true;
     void Start()
     {
         // Hiệu ứng di chuyển GameObject title
@@ -16,24 +17,22 @@ public class MenuController : MonoBehaviour
 
         // Gán sự kiện cho các nút
         playButton.onClick.AddListener(PlayGame);
-        settingsButton.onClick.AddListener(OpenSettings);
-        selectBunnyButton.onClick.AddListener(SelectBunny);
+        exitButton.onClick.AddListener(ExitGame);
+        soundToggleButton.onClick.AddListener(ToggleSound);
     }
-
     void PlayGame()
     {
         SceneManager.LoadScene("SampleScene");
     }
-
-    void OpenSettings()
+    void ExitGame()
     {
-        Debug.Log("Mở cài đặt");
-        // Thêm code để mở menu cài đặt nếu có
+        Debug.Log("Thoát game!");
+        Application.Quit(); // 🆕 Thoát game
     }
-
-    void SelectBunny()
+    void ToggleSound()
     {
-        Debug.Log("Chọn Thỏ");
-        // Thêm code để mở giao diện chọn nhân vật
+        isSoundOn = !isSoundOn;
+        AudioListener.volume = isSoundOn ? 1f : 0f;
+        Debug.Log("Âm thanh hiện tại: " + (isSoundOn ? "BẬT" : "TẮT"));
     }
 }
