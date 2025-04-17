@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -6279167082763010094, guid: 2d995a1d14fb24d4b9beb726c8fe4add, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -127,7 +127,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5625, y: 0.5625}
+    oldSize: {x: 1.125, y: 1.125}
     newSize: {x: 0.5625, y: 0.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -148,4 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 1
-  spawnArea: {fileID: 0}
+  spawnArea: {fileID: 4659251658842201227}
+  moveSpeed: 1

@@ -50,14 +50,14 @@ public class PlayerMovement : MonoBehaviour
             ChangeAnimation("Idle");
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        if (Input.GetKeyDown(KeyCode.W) && _isGrounded)
         {
             isJumping = true;
             jumpHoldTimer = 0f;
             Jump();
         }
         
-        if (Input.GetKey(KeyCode.Space) && isJumping)
+        if (Input.GetKey(KeyCode.W) && isJumping)
         {
             if (jumpHoldTimer < maxJumpHoldTime && rb.linearVelocity.y > 0)
             {
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             isJumping = false;
         }
@@ -107,7 +107,8 @@ public class PlayerMovement : MonoBehaviour
     
     private IEnumerator DieAnimation(bool DieCheck = false) // trang thai khi player chet
     {
-        cameraShake.Shake(0.2f, 0.2f); // Camera rung trong 2s khi palyer chet
+        
+        StartCoroutine(cameraShake.Shake(0.5f, 0.5f)); // Camera rung trong 2s khi palyer chet
         yield return new WaitForSeconds(0.5f);
         if (DieCheck)
         {
@@ -128,8 +129,9 @@ public class PlayerMovement : MonoBehaviour
         // Xu li va cham giua character voi trap
         if (other.gameObject.CompareTag("trap"))
         {
-            Vector2 pushDirection = new Vector2(-3, 0);
-            rb.AddForce(pushDirection * 200f, ForceMode2D.Impulse);
+            
+            Vector2 pushDirection = new Vector2(-30, 0.1f);
+            rb.AddForce(pushDirection * 20f, ForceMode2D.Impulse);
             StartCoroutine(DieAnimation(true));
             ChangeAnimation("Player_Die");
             
@@ -137,13 +139,10 @@ public class PlayerMovement : MonoBehaviour
             collider.isTrigger = true;
             
             AudioManager.instance.PlayDieAudio();
+            UIManager.instance.SaveGameResult();
         }
 
-        if (other.gameObject.CompareTag("oneWayGround"))
-        {
-            CompositeCollider2D ground = other.gameObject.GetComponent<CompositeCollider2D>();
-            OnWayGround.instance.GroundOneWay(ground);
-        }
+     
     }
 
     private void OnTriggerEnter2D(Collider2D tr)
@@ -156,6 +155,12 @@ public class PlayerMovement : MonoBehaviour
             
             AudioManager.instance.PlayCarrotAudio();
         }
-      
+        if (tr.gameObject.CompareTag("GoldCarrot"))
+        {
+            UIManager.instance.AddGoldCarrot();
+            Destroy(tr.gameObject);
+            
+            AudioManager.instance.PlayGoldCarrotAudio();
+        }
     }
 }

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2656285359738499201}
   - component: {fileID: -2155813341203023215}
   - component: {fileID: -2641669451524260483}
+  - component: {fileID: 1151194384798562180}
   m_Layer: 0
   m_Name: Golden Carrot
-  m_TagString: Golden_Carrot
+  m_TagString: GoldCarrot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +128,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5625, y: 0.5625}
+    oldSize: {x: 1.125, y: 1.125}
     newSize: {x: 0.5625, y: 0.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -142,12 +143,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8261144318873907701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6c50aefaaaab574597023657177ad58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 5
-  spawnArea: {fileID: 0}
+  moveSpeed: 1
+  rotationSpeed: 30
   lifeTime: 10
   collectEffect: {fileID: 0}
+--- !u!114 &1151194384798562180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261144318873907701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dedde4830ec33b24d82af702a5ac53d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreValue: 1
+  spawnArea: {fileID: -2155813341203023215}
+  moveSpeed: 1

@@ -10,8 +10,8 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     [Header("Timer & Carrot Count")]
-    [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private TextMeshProUGUI carrotCountText;
+    [SerializeField] private Text timerText;
+    [SerializeField] private Text carrotCountText;
 
     private float timer;
     private int carrotCount;
@@ -20,18 +20,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject playUI;
     [SerializeField] private GameObject ResultUI;
+    
+    [SerializeField] private GameObject Player;
+    [SerializeField] private GameObject Khoi;
 
     [Header("Buttons")]
     [SerializeField] private Button[] buttons; 
 
     [Header("Results UI")]
-    [SerializeField] private TextMeshProUGUI currentCarrotText;  // Hiển thị Carrot mới nhất
-    [SerializeField] private TextMeshProUGUI currentTimeText;    // Hiển thị thời gian mới nhất
-    [SerializeField] private TextMeshProUGUI previousCarrotText; // Hiển thị Carrot trước đó
-    [SerializeField] private TextMeshProUGUI previousTimeText;   // Hiển thị thời gian trước đó
+    [SerializeField] private Text currentCarrotText;  // Hiển thị Carrot mới nhất
+    [SerializeField] private Text currentTimeText;    // Hiển thị thời gian mới nhất
+    [SerializeField] private Text previousCarrotText; // Hiển thị Carrot trước đó
+    [SerializeField] private Text previousTimeText;   // Hiển thị thời gian trước đó
     
     //Quan li am thanh
-    private bool isBackgroundMusicOn = true; 
+    private bool isBackgroundMusicOn ; 
     private bool isGameSoundOn = true;
 
     private void Awake()
@@ -47,7 +50,7 @@ public class UIManager : MonoBehaviour
         // Cac su kien 
         buttons[0].onClick.AddListener(PauseGame); // Pause
         buttons[1].onClick.AddListener(ResumeGame); // Play
-        buttons[2].onClick.AddListener(() => SceneManager.LoadScene("Menu")); // Out
+        buttons[2].onClick.AddListener(() => SceneManager.LoadScene("MenuScene")); // Out
         buttons[3].onClick.AddListener(() => 
         {
             Time.timeScale = 1; 
@@ -57,12 +60,15 @@ public class UIManager : MonoBehaviour
         buttons[5].onClick.AddListener(ConvertMusicGame); // chuyen doi sang StopMusicGame
         buttons[6].onClick.AddListener(ToggleBackgroundMusic); // StopMusicBackground
         buttons[7].onClick.AddListener(ToggleGameSound); // StopMusicGame
-        buttons[8].onClick.AddListener(() => SceneManager.LoadScene("Menu")); // Out
+        buttons[8].onClick.AddListener(() => SceneManager.LoadScene("MenuScene")); // Out
         buttons[9].onClick.AddListener(() => 
         {
             Time.timeScale = 1; 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         }); // Again
+        Player.SetActive(false);
+        Khoi.SetActive(false);
+       XuatHien();
     }
 
     private void Update()
@@ -70,18 +76,35 @@ public class UIManager : MonoBehaviour
         UpdateTimer();
     }
 
+    private void XuatHien()
+    {
+        StartCoroutine(XuatHienPlayer());
+    }
+
+    private IEnumerator XuatHienPlayer()
+    {
+        Khoi.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        Khoi.SetActive(false);
+        Player.SetActive(true);
+    }
     private void UpdateTimer()
     {
         timer += Time.deltaTime;
         int minutes = Mathf.FloorToInt(timer / 60);
         int seconds = Mathf.FloorToInt(timer % 60);
         int milliseconds = Mathf.FloorToInt((timer % 1) * 100);
-        timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:00}";
+        timerText.text = $"{minutes:0}:{seconds:00}:{milliseconds:00}";
     }
 
     public void AddCarrot()
     {
         carrotCount++;
+        carrotCountText.text = carrotCount.ToString();
+    }
+    public void AddGoldCarrot()
+    {
+        carrotCount += 3;
         carrotCountText.text = carrotCount.ToString();
     }
 
@@ -151,6 +174,8 @@ public class UIManager : MonoBehaviour
         // Ghi vào file JSON
         string json = JsonUtility.ToJson(result, true);
         File.WriteAllText(Application.persistentDataPath + "/GameResult.json", json);
+        
+        
     }
 
     public void ShowResults()
@@ -170,6 +195,5 @@ public class UIManager : MonoBehaviour
         AudioManager.instance.PlayResultBackgroundAudio();
         AudioManager.instance.ToggleAudio(AudioManager.instance.audioClip, false);
     }
- 
-
+    
 }

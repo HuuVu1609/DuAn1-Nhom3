@@ -119,75 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &111806690
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 292203346671856093, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_Name
-      value: Carrot
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.2867
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.2331
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.5719
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.4365
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2812726134442755330, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8020367101432522929, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
-      propertyPath: spawnArea
-      value: 
-      objectReference: {fileID: 1074904752}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6c66688b2ff01ef4eb00c18115ab54d8, type: 3}
 --- !u!1 &266292237
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +576,7 @@ SpriteRenderer:
   m_Size: {x: 3.84, y: 0.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2085466811
@@ -715,7 +646,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 266292240}
-  - {fileID: 111806690}
   - {fileID: 2004669156}
   - {fileID: 2085466811}
   - {fileID: 1074904754}

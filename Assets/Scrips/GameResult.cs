@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 [System.Serializable]
 public class GameResult
 {
@@ -6,3 +8,5 @@ public class GameResult
     public int currentCarrotCount;
     public float currentTime;
 }
+
+
