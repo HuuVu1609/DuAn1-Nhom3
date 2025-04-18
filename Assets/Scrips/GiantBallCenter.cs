@@ -58,4 +58,5 @@ public class GiantBallCenter : MonoBehaviour
             points[i].transform.position = newPosition;
         }
     }
+    //chinh sua lan 2
 }
