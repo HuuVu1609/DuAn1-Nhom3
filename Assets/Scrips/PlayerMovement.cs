@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Camera")]
     [SerializeField] private CameraShake cameraShake;
+    
+    [Header("Animation_Die")]
+    [SerializeField] private GameObject Die_Ani;
 
     private float horizontal;
     private bool _isGrounded;
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private AudioManager audioManager;
     void Start()
     {
+        Die_Ani.SetActive(false);
         audioManager = FindObjectOfType<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>(); // khoi tao animation
@@ -107,34 +111,34 @@ public class PlayerMovement : MonoBehaviour
     
     private IEnumerator DieAnimation(bool DieCheck = false) // trang thai khi player chet
     {
-        
-        StartCoroutine(cameraShake.Shake(0.5f, 0.5f)); // Camera rung trong 2s khi palyer chet
+        StartCoroutine(cameraShake.Shake(0.5f, 0.5f));
+        Die_Ani.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        Die_Ani.SetActive(false);
+        transform.Rotate(0f, 0f, 90f * Time.deltaTime); 
         yield return new WaitForSeconds(0.5f);
         if (DieCheck)
         {
             for (int i = 0; i < 2; i++) 
             {
-                transform.Rotate(0f, 0f, 90f); 
-                yield return new WaitForSeconds(0.5f);
+                transform.Rotate(0f, 0f, 90f ); 
+                yield return new WaitForSeconds(0.2f);
             }
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         UIManager.instance.ShowResults(); // Hien thi man hinh ket qua
     }
-
-   
+    
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         // Xu li va cham giua character voi trap
         if (other.gameObject.CompareTag("trap"))
         {
-            
-            Vector2 pushDirection = new Vector2(-30, 0.1f);
+            ChangeAnimation("Die");
+            Vector2 pushDirection = new Vector2(0f, 0.5f);
             rb.AddForce(pushDirection * 20f, ForceMode2D.Impulse);
             StartCoroutine(DieAnimation(true));
-            ChangeAnimation("Player_Die");
-            
             BoxCollider2D collider = gameObject.GetComponent<BoxCollider2D>();
             collider.isTrigger = true;
             
@@ -152,15 +156,28 @@ public class PlayerMovement : MonoBehaviour
         {
             UIManager.instance.AddCarrot();
             Destroy(tr.gameObject);
+            CarotSqawn.instance.SpawnCarrot();
             
             AudioManager.instance.PlayCarrotAudio();
         }
-        if (tr.gameObject.CompareTag("GoldCarrot"))
+        else if (tr.gameObject.CompareTag("GoldCarrot"))
         {
             UIManager.instance.AddGoldCarrot();
             Destroy(tr.gameObject);
             
             AudioManager.instance.PlayGoldCarrotAudio();
+        }
+        else if (tr.gameObject.CompareTag("trap"))
+        {
+            BoxCollider2D collider = gameObject.GetComponent<BoxCollider2D>();
+            collider.isTrigger = true;
+            ChangeAnimation("Die");
+            Vector2 pushDirection = new Vector2(0f, 0.5f);
+            rb.AddForce(pushDirection * 20f, ForceMode2D.Impulse);
+            StartCoroutine(DieAnimation(true));
+            
+            AudioManager.instance.PlayDieAudio();
+            UIManager.instance.SaveGameResult();
         }
     }
 }
