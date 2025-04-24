@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5893792211826256676}
   - component: {fileID: 2787166035760649634}
   - component: {fileID: 1578194725933764910}
+  - component: {fileID: -2128175563861261641}
   m_Layer: 0
   m_Name: Right Cannon
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 929eb062f9fc3de4ca31ea7700066ff2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -110,3 +111,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2128175563861261641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347372110199746143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68f413f13884864ab9c97a1d46d119d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightCannonShell: {fileID: 739061784991951375, guid: e2bfa33cfcce1464392d70c3d46bfda8, type: 3}
+  smoke: {fileID: 2983219449382461677, guid: d2b884881e5fca942bbc172d39cdbe3a, type: 3}
+  effectTime: 1
+  delayShooting: 1
+  delayFire: 1
+  delayReFire: 10
+  shellSpeed: -3
